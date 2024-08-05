@@ -1,0 +1,55 @@
+version: '2'
+ 
+services:  
+mariadb: 
+image: 'docker.io/cjlosande18/sl_reports:mariadblatest' 
+volumes:       
+ - 'mariadb_data:/cjlosande18/sl_reports:mariadblatest' 
+environment: 
+ - ALLOW_EMPTY_PASSWORD=yes 
+ - MARIADB_USER=bn_jasperreports 
+ - MARIADB_DATABASE=bitnami_jasperreports 
+    
+jasperreports: 
+image: 'docker.io/cjlosande18/sl_reports:jasperlatest' 
+ports: 
+ - '8080:8080' 
+volumes: 
+ - 'jasperreports_data:/sl_reports:mariadblatest' 
+depends_on: 
+ - mariadb 
+environment: 
+ - ALLOW_EMPTY_PASSWORD=yes 
+ - JASPERREPORTS_DATABASE_HOST=mariadb 
+ - JASPERREPORTS_DATABASE_PORT_NUMBER=3306 
+version: '2'
+ 
+services:  
+mariadb: 
+image: 'docker.io/cjlosande18/sl_reports:mariadblatest' 
+volumes:       
+ - 'mariadb_data:/cjlosande18/sl_reports:mariadblatest' 
+environment: 
+ - ALLOW_EMPTY_PASSWORD=yes 
+ - MARIADB_USER=bn_jasperreports 
+ - MARIADB_DATABASE=bitnami_jasperreports 
+    
+jasperreports: 
+image: 'docker.io/cjlosande18/sl_reports:jasperlatest' 
+ports: 
+ - '8080:8080' 
+volumes: 
+ - 'jasperreports_data:/sl_reports:mariadblatest' 
+depends_on: 
+ - mariadb 
+environment: 
+ - ALLOW_EMPTY_PASSWORD=yes 
+ - JASPERREPORTS_DATABASE_HOST=mariadb 
+ - JASPERREPORTS_DATABASE_PORT_NUMBER=3306 
+ - JASPERREPORTS_DATABASE_USER=bn_jasperreports
+ 
+volumes: 
+ mariadb_data: 
+  driver: local 
+ jasperreports_data:
+  driver: local
